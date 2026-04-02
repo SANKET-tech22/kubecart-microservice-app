@@ -2,7 +2,7 @@
 FROM python:3.11-slim
 
 #Set working Directory
-WORKDIR /app
+WORKDIR /app/app
 
 #Copy dependencies first
 COPY requirements.txt .
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 5000
 
 #Run Application
-CMD ["python3", "./app/app.py"]
+CMD ["python3", "app.py"]
