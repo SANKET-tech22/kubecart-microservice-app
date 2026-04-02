@@ -1,0 +1,21 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata: 
+  name: kubecart-backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kubecart-backend
+  template:
+    metadata:
+      labels:
+        app: kubecart-backend
+    spec:
+      containers:
+        - name: Backend
+          image: sanketf5/kubecart/kubecart-backend:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: DB_HOST
