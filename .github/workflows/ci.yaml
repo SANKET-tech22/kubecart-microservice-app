@@ -28,7 +28,7 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/kubecart-backend:latest
 
   deploy:
-    needs: build-build-and-push-backend
+    needs: build-and-push-backend
     runs-on: ubuntu-latest
 
     steps:
