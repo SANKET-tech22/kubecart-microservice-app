@@ -26,3 +26,25 @@ jobs:
       - name: Push Backend Image
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/kubecart-backend:latest
+
+  deploy:
+    needs: build-build-and-push-backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Kubectl 
+        uses: azure/setup-kubectl@v4
+
+      - name: Configure kubeconfig
+        run: | 
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBECONGIG }}" > ~/.kube/config
+
+      - name: Deploy to Kubernetes 
+        run: | 
+          kubectl apply -f k8s/backend-deployment.yaml
+          kubectl apply -f k8s/backend-service.yaml
+           
