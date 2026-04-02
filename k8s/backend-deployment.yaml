@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: sanketf5/kubecart/kubecart-backend:latest
+          image: sanketf5//kubecart-backend:latest
           ports:
             - containerPort: 5000
           env:
