@@ -1,0 +1,63 @@
+# 🔹 1. Persistent Volume Claim
+apiVersion: v1 
+kind: PersistenVolumeClaim
+metadata: 
+  name: postgres-pvc 
+spec: 
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+# 🔹 1. Persistent Volume Claim
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: postgres
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      labels:
+        app: postgres
+    spec: 
+      containers:
+        - name: postgres
+          image: postgres:15
+          ports:  
+            - containerPort: 5432
+          env:  
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  value: DB_NAME
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  value: DB_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  value: DB_PASSWOR
+          volumeMounts:
+            - name: postgres-storage
+              PersistenVolumeClaim: 
+                claimName: postgres-pvc
+
+---
+# 🔹 3. Postgres Service
+apiVersion: v1
+kind: Service
+metadata: 
+  name: db       
+spec:
+  selector:
+    app: postgres
+  ports:
+    - port: 5432
+      targetPort: 5432
