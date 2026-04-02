@@ -13,7 +13,7 @@ spec:
         app: kubecart-backend
     spec:
       containers:
-        - name: Backend
+        - name: backend
           image: sanketf5/kubecart/kubecart-backend:latest
           ports:
             - containerPort: 5000
