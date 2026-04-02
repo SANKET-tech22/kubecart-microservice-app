@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kubecart-ingress 
+spec:
+  rules:
+    - host: kubecart.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kubecart-backend-service
+                port:
+                  number: 80
