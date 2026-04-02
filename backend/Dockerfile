@@ -1,20 +1,19 @@
 FROM python:3.11-slim
 
-# Step 1: root working dir
+# Set working directory (IMPORTANT)
 WORKDIR /app
 
-# Step 2: copy requirements
+# Copy requirements first
 COPY requirements.txt .
 
-# Step 3: install deps
+# Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Step 4: copy full code
+# Copy full code
 COPY . .
 
-# Step 5: move into app folder
-WORKDIR /app/app
-
-# Step 6: run app
+# Expose port
 EXPOSE 5000
-CMD ["python3", "app.py"]
+
+# Run as module (VERY IMPORTANT FIX)
+CMD ["python", "-m", "app.app"]
