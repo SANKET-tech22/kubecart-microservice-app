@@ -42,7 +42,9 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /home/ubuntu
+            cd ~/kubecart-microservice-app
+            kubectl apply -f k8s/db-secret.yaml
+            kubectl apply -f k8s/postgres.yaml
             kubectl apply -f k8s/backend-deployment.yaml
             kubectl apply -f k8s/backend-service.yaml
     
