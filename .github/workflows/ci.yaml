@@ -25,4 +25,4 @@ jobs:
 
       - name: Push Backend Image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/kubecart-backned:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/kubecart-backend:latest
