@@ -1,9 +1,10 @@
 from flask import Flask
+from flask_cors import CORS
 from routes.products_routes import product_bp
 from routes.orders_routes import order_bp
 
 app = Flask(__name__)
-
+CORS(app)
 # Register routes
 app.register_blueprint(product_bp, url_prefix="/products")
 app.register_blueprint(order_bp, url_prefix="/orders")
