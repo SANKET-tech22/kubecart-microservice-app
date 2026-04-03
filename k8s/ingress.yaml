@@ -4,7 +4,7 @@ metadata:
   name: kubecart-ingress 
 spec:
   rules:
-    - host: kubecart.local
+    - host: kubecartlivemyftp.org
       http:
         paths:
           - path: /
