@@ -43,7 +43,9 @@ def get_products():
         for r in rows
     ]
 
-    return jsonify(products)
+    response = jsonify(products)
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    return response
 
 
 # 🟢 ADD product
@@ -67,11 +69,13 @@ def add_product():
     cur.close()
     conn.close()
 
-    return jsonify({
+    response = jsonify({
         "id": new_id,
         "name": name,
         "price": price
     })
+    response.headers.add("Access-Control-Origin", "*")
+    return response
 
 
 # 🔴 DELETE product
@@ -86,4 +90,15 @@ def delete_product(id):
     cur.close()
     conn.close()
 
-    return jsonify({"message": "Product deleted"})
+    response = jsonify({"message": "Product deleted"})
+    response.headers.add("Access-Control-Origin", "*")
+    return response
+
+@product_bp.route("/", methods=["OPTIONS"])
+@product_bp.route("/<int:id>", methods=["OPTIONS"])
+def handle_options(id=None):
+    response = jsonify({"message": "OK"})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type")
+    response.headers.add("Access-Control-Allow-Methods", "GET, POST, DELETE, OPTIONS")
+    return response, 200
